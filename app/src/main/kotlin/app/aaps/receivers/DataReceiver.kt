@@ -20,6 +20,7 @@ import app.aaps.plugins.source.DexcomPlugin
 import app.aaps.plugins.source.GlimpPlugin
 import app.aaps.plugins.source.MM640gPlugin
 import app.aaps.plugins.source.PatchedSiAppPlugin
+import app.aaps.plugins.source.OttaiPlugin
 import app.aaps.plugins.source.PatchedSinoAppPlugin
 import app.aaps.plugins.source.PoctechPlugin
 import app.aaps.plugins.source.SyaiPlugin
@@ -76,7 +77,13 @@ open class DataReceiver : DaggerBroadcastReceiver() {
                         it.copyString("data", bundle)
                     }.build()).build()
 
-            Intents.OTTAI_APP, Intents.OTTAI_APP_CN,
+            Intents.OTTAI_APP, Intents.OTTAI_APP_CN   ->
+                OneTimeWorkRequest.Builder(OttaiPlugin.OttaiWorker::class.java)
+                    .setInputData(Data.Builder().also {
+                        it.copyString("collection", bundle)
+                        it.copyString("data", bundle)
+                    }.build()).build()
+
             Intents.SYAI_APP                          ->
                 OneTimeWorkRequest.Builder(SyaiPlugin.SyaiWorker::class.java)
                     .setInputData(Data.Builder().also {

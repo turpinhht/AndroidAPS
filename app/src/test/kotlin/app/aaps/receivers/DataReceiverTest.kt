@@ -13,6 +13,7 @@ import app.aaps.plugins.source.DexcomPlugin
 import app.aaps.plugins.source.GlimpPlugin
 import app.aaps.plugins.source.MM640gPlugin
 import app.aaps.plugins.source.PatchedSiAppPlugin
+import app.aaps.plugins.source.OttaiPlugin
 import app.aaps.plugins.source.PatchedSinoAppPlugin
 import app.aaps.plugins.source.PoctechPlugin
 import app.aaps.plugins.source.SyaiPlugin
@@ -137,7 +138,7 @@ class DataReceiverTest : TestBase() {
         dataReceiver.processIntent(context, intent)
 
         // Assert
-        assertWorkerEnqueued(SyaiPlugin.SyaiWorker::class)
+        assertWorkerEnqueued(OttaiPlugin.OttaiWorker::class)
     }
 
     @Test
